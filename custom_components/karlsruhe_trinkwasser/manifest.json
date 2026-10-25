@@ -1,0 +1,10 @@
+{
+  "domain": "karlsruhe_trinkwasser",
+  "name": "Karlsruhe Trinkwasser",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://www.stadtwerke-karlsruhe.de/de/gk/wohnungswirtschaft/trinkwasser/wasserqualitaet.php",
+  "requirements": [],
+  "codeowners": [],
+  "iot_class": "cloud_polling"
+}
