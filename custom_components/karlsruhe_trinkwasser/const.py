@@ -8,7 +8,14 @@ PAGE_URL = (
 )
 IMAGE_BASE_URL = "https://www.stadtwerke-karlsruhe.de"
 
-DEFAULT_SCAN_INTERVAL = 600  # 10 minutes
+CONF_SCAN_INTERVAL = "scan_interval"
+DEFAULT_SCAN_INTERVAL = 3600  # 1 hour
+
+SCAN_INTERVAL_OPTIONS = [
+    ("600", "10 Minuten"),
+    ("3600", "1 Stunde"),
+    ("86400", "1 Tag"),
+]
 
 SENSOR_KEYS = [
     "temperatur",

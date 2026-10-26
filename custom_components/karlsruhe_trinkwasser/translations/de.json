@@ -3,7 +3,10 @@
     "step": {
       "user": {
         "title": "Karlsruhe Trinkwasser",
-        "description": "Verbindet Home Assistant mit dem Wasserqualitäts-Monitor der Stadtwerke Karlsruhe. Es ist keine weitere Konfiguration erforderlich."
+        "description": "Verbindet Home Assistant mit dem Wasserqualitäts-Monitor der Stadtwerke Karlsruhe.",
+        "data": {
+          "scan_interval": "Abfrageintervall"
+        }
       }
     },
     "error": {
@@ -11,6 +14,16 @@
     },
     "abort": {
       "single_instance_allowed": "Diese Integration kann nur einmal hinzugefügt werden."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Abfrageintervall ändern",
+        "data": {
+          "scan_interval": "Abfrageintervall"
+        }
+      }
     }
   }
 }

@@ -13,7 +13,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
-    DEFAULT_SCAN_INTERVAL,
     DIGIT_TEMPLATES,
     DOMAIN,
     IMAGE_BASE_URL,
@@ -178,12 +177,12 @@ def _ocr_image(data: bytes) -> float | None:
 class TrinkwasserCoordinator(DataUpdateCoordinator):
     """Fetches all Trinkwasser measurements from Stadtwerke Karlsruhe."""
 
-    def __init__(self, hass: HomeAssistant) -> None:
+    def __init__(self, hass: HomeAssistant, scan_interval: int) -> None:
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+            update_interval=timedelta(seconds=scan_interval),
         )
 
     async def _async_update_data(self) -> dict:

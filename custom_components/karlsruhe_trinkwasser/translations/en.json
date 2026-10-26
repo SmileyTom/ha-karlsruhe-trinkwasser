@@ -3,7 +3,10 @@
     "step": {
       "user": {
         "title": "Karlsruhe Drinking Water",
-        "description": "Connects Home Assistant to the water quality monitor of Stadtwerke Karlsruhe. No further configuration is required."
+        "description": "Connects Home Assistant to the water quality monitor of Stadtwerke Karlsruhe.",
+        "data": {
+          "scan_interval": "Poll interval"
+        }
       }
     },
     "error": {
@@ -11,6 +14,16 @@
     },
     "abort": {
       "single_instance_allowed": "This integration can only be added once."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Change poll interval",
+        "data": {
+          "scan_interval": "Poll interval"
+        }
+      }
     }
   }
 }
