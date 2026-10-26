@@ -12,12 +12,27 @@ from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, PAGE_URL, SENSOR_KEYS, SENSOR_META
+from .const import DOMAIN, PAGE_URL, SENSOR_KEYS, SENSOR_LIMITS, SENSOR_META
 from .coordinator import TrinkwasserCoordinator
 
 _DEVICE_CLASS_MAP = {
     "temperatur": SensorDeviceClass.TEMPERATURE,
 }
+
+_STATUS_COLOR = {"OK": "green", "Warnung": "amber", "Kritisch": "red"}
+
+
+def _calc_status(key: str, value: float) -> str:
+    limits = SENSOR_LIMITS.get(key, {})
+    if limits.get("limit_min") is not None and value < limits["limit_min"]:
+        return "Kritisch"
+    if limits.get("limit_max") is not None and value > limits["limit_max"]:
+        return "Kritisch"
+    if limits.get("warn_min") is not None and value < limits["warn_min"]:
+        return "Warnung"
+    if limits.get("warn_max") is not None and value > limits["warn_max"]:
+        return "Warnung"
+    return "OK"
 
 
 async def async_setup_entry(
@@ -57,6 +72,19 @@ class TrinkwasserSensor(CoordinatorEntity[TrinkwasserCoordinator], SensorEntity)
     @property
     def native_value(self) -> float | None:
         return self.coordinator.data.get(self._key)
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        attrs: dict = {}
+        limits = SENSOR_LIMITS.get(self._key, {})
+        if grenzwert := limits.get("grenzwert"):
+            attrs["grenzwert"] = grenzwert
+        value = self.native_value
+        if value is not None:
+            status = _calc_status(self._key, value)
+            attrs["status"] = status
+            attrs["status_color"] = _STATUS_COLOR[status]
+        return attrs
 
 
 class TrinkwasserTimestampSensor(CoordinatorEntity[TrinkwasserCoordinator], SensorEntity):

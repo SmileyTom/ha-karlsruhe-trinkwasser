@@ -35,6 +35,39 @@ SENSOR_META = {
     "nitrat":        {"name": "Nitrat",         "unit": "mg/l",   "icon": "mdi:test-tube"},
 }
 
+SENSOR_LIMITS: dict[str, dict] = {
+    "temperatur": {
+        "limit_max": 25.0,
+        "warn_max": 22.0,
+        "grenzwert": "≤ 25 °C (Indikatorparameter TrinkwV)",
+    },
+    "phwert": {
+        "limit_min": 6.5,
+        "limit_max": 9.5,
+        "warn_min": 6.8,
+        "warn_max": 9.2,
+        "grenzwert": "6,5–9,5 (TrinkwV)",
+    },
+    "leitfaehigkeit": {
+        "limit_max": 2790.0,
+        "warn_max": 2232.0,
+        "grenzwert": "≤ 2790 µS/cm (TrinkwV)",
+    },
+    "truebung": {
+        "limit_max": 1.0,
+        "warn_max": 0.8,
+        "grenzwert": "≤ 1,0 NTU (TrinkwV)",
+    },
+    "sauerstoff": {
+        "grenzwert": "kein gesetzlicher Grenzwert",
+    },
+    "nitrat": {
+        "limit_max": 50.0,
+        "warn_max": 40.0,
+        "grenzwert": "≤ 50 mg/l (TrinkwV)",
+    },
+}
+
 # ---------------------------------------------------------------------------
 # Digit OCR – templates built from the Weblication CMS gauge images (100×150 px,
 # 4-bit palette, text region rows 68–79).  Each key is (width, bitmap_tuple).
